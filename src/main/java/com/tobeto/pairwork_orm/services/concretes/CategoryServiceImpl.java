@@ -1,5 +1,6 @@
 package com.tobeto.pairwork_orm.services.concretes;
 
+import com.tobeto.pairwork_orm.core.utilities.exceptions.types.BusinessException;
 import com.tobeto.pairwork_orm.core.utilities.mapping.ModelMapperService;
 import com.tobeto.pairwork_orm.entities.Category;
 import com.tobeto.pairwork_orm.repositories.CategoryRepository;
@@ -101,6 +102,6 @@ public class CategoryServiceImpl implements CategoryService {
 		Optional<Category> categoryWithSameName = categoryRepository.findByCategoryNameIgnoreCase(name);
 
 		if (categoryWithSameName.isPresent())
-			throw new RuntimeException("Aynı isimde bir kategori zaten var.");
+			throw new BusinessException("Aynı isimde bir kategori zaten var.");
 	}
 }
