@@ -15,5 +15,5 @@ public class UpdateCategoryByIdRequest {
     
     @NotBlank(message = "İsim alanı boş olamaz.")
     @Size(min=2, max=50, message = "İsim alanı 2 ile 50 karakter arasında olmalıdır.")
-    private String name;
+    private String categoryName;
 }

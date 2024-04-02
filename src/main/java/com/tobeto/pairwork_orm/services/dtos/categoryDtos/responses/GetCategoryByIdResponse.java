@@ -9,9 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetCategoryByIdResponse {
-	
-	private int id;
-
-	private String name;
-
+	private String categoryName;
 }

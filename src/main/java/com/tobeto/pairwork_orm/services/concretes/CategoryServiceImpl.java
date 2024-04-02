@@ -1,5 +1,6 @@
 package com.tobeto.pairwork_orm.services.concretes;
 
+import com.tobeto.pairwork_orm.core.utilities.mapping.ModelMapperService;
 import com.tobeto.pairwork_orm.entities.Category;
 import com.tobeto.pairwork_orm.repositories.CategoryRepository;
 import com.tobeto.pairwork_orm.services.abstracts.CategoryService;
@@ -15,92 +16,91 @@ import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.ListAllCateg
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-	
-    private CategoryRepository categoryRepository;
-    
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+	private CategoryRepository categoryRepository;
+
+	private ModelMapperService modelMapperService;
+
+	public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapperService modelMapperService) {
 		this.categoryRepository = categoryRepository;
+		this.modelMapperService = modelMapperService;
 	}
 
 	@Override
-    public AddCategoryResponse add(AddCategoryRequest request) {
-    	
-    	categoryWithSameNameShouldNotExist(request.getName());
-    	Category category = new Category();
-    	category.setName(request.getName());
-    	
-    	Category savedCategory = categoryRepository.save(category);
-      
-    	AddCategoryResponse response = new AddCategoryResponse(savedCategory.getId(), savedCategory.getName());
-        
-        return response;
-    }
+	public AddCategoryResponse add(AddCategoryRequest request) {
+		categoryWithSameNameShouldNotExist(request.getCategoryName());
 
-    @Override
-    public UpdatedCategoryResponse update(UpdateCategoryByIdRequest request) {
-    	
-    	categoryWithSameNameShouldNotExist(request.getName());
-    	
-        Category category = categoryRepository.findById(request.getId()).orElseThrow();
-        category.setName(request.getName());
-        Category updatedCategory = categoryRepository.save(category);
-        
-        UpdatedCategoryResponse response = new UpdatedCategoryResponse(updatedCategory.getName());
-        
-        return response;
-    }
+		Category category = this.modelMapperService.forRequest().map(request, Category.class);
 
-    @Override
-    public DeleteCategoryByIdResponse delete(DeleteCategoryByIdRequest request) {
-    	
-        Category category = categoryRepository.findById(request.getId()).orElseThrow();
-                
-        categoryRepository.delete(category);
-        
-        DeleteCategoryByIdResponse response = new DeleteCategoryByIdResponse("Category deleted.");
-        
-        return response;
-    }
+		Category savedCategory = categoryRepository.save(category);
 
-    @Override
-    public List<ListAllCategoryResponse> getAll() {
-    	
-        List<Category> categories = categoryRepository.findAll();
+		AddCategoryResponse response = this.modelMapperService.forResponse().map(savedCategory,
+				AddCategoryResponse.class);
 
-        List<ListAllCategoryResponse> result = new ArrayList<>();
-        // Listeyi Manual Mapleme - Amatör
-        // TODO: Refactor
-        for (Category c: categories) {
-            ListAllCategoryResponse dto = new ListAllCategoryResponse(c.getId(), c.getName());
-            result.add(dto);
-        }
-        return result;
-    }
+		return response;
+	}
 
-    @Override
-    public GetCategoryByIdResponse getById(GetCategoryByIdRequest request) {
-    	
-        Category category = categoryRepository.findById(request.getId()).orElseThrow();
-        
-        GetCategoryByIdResponse response = new GetCategoryByIdResponse(category.getId(), category.getName());
-        
-        return response;
-    }
-    
-    // 1. => Anlaşılabilirlik
-    // 2. => Uzunluk
-    private void categoryWithSameNameShouldNotExist(String name)
-    {
-        Optional<Category> categoryWithSameName = categoryRepository.findByNameIgnoreCase(name);
+	@Override
+	public UpdatedCategoryResponse update(UpdateCategoryByIdRequest request) {
+		categoryWithSameNameShouldNotExist(request.getCategoryName());
 
-        if(categoryWithSameName.isPresent())
-            throw new RuntimeException("Aynı isimde bir kategori zaten var.");
-    }
+		Category category = categoryRepository.findById(request.getId()).orElseThrow();
+
+		category = this.modelMapperService.forRequest().map(request, Category.class);
+
+		// category.setCategoryName(request.getCategoryName());
+		Category updatedCategory = categoryRepository.save(category);
+
+		UpdatedCategoryResponse response = this.modelMapperService.forResponse().map(updatedCategory,
+				UpdatedCategoryResponse.class);
+
+		return response;
+	}
+
+	@Override
+	public DeleteCategoryByIdResponse delete(DeleteCategoryByIdRequest request) {
+		Category category = categoryRepository.findById(request.getId()).orElseThrow();
+
+		categoryRepository.delete(category);
+
+		DeleteCategoryByIdResponse response = new DeleteCategoryByIdResponse("Category deleted.");
+
+		return response;
+	}
+
+	@Override
+	public List<ListAllCategoryResponse> getAll() {
+		List<Category> categories = categoryRepository.findAll();
+
+		List<ListAllCategoryResponse> response = categories.stream()
+				.map(category -> this.modelMapperService.forResponse().map(category, ListAllCategoryResponse.class))
+				.collect(Collectors.toList());
+
+		return response;
+	}
+
+	@Override
+	public GetCategoryByIdResponse getById(GetCategoryByIdRequest request) {
+		Category category = categoryRepository.findById(request.getId()).orElseThrow();
+
+		GetCategoryByIdResponse response = this.modelMapperService.forResponse().map(category,
+				GetCategoryByIdResponse.class);
+
+		return response;
+	}
+
+	// 1. => Anlaşılabilirlik
+	// 2. => Uzunluk
+	private void categoryWithSameNameShouldNotExist(String name) {
+		Optional<Category> categoryWithSameName = categoryRepository.findByCategoryNameIgnoreCase(name);
+
+		if (categoryWithSameName.isPresent())
+			throw new RuntimeException("Aynı isimde bir kategori zaten var.");
+	}
 }

@@ -1,11 +1,8 @@
 package com.tobeto.pairwork_orm.entities;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +16,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-    @Column(name="product_id")
+
     @Id
+    @Column(name="product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int productId;
 
     @Column(name="package_height")
     private String packageHeight;
@@ -36,17 +34,14 @@ public class Product {
     @Column(name="product_name")
     private String productName;
 
-    @Column(name="product_photo_url")
-    private String productPhotoUrl;
-
     @Column(name="unit_price")
     private double unitPrice;
 
     @Column(name="unit_in_stock")
     private int unitInStock;
 
-    @OneToMany(mappedBy = "product")
     @JsonIgnore
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductPhoto> productPhotos;
 
     @ManyToOne(fetch = FetchType.LAZY)

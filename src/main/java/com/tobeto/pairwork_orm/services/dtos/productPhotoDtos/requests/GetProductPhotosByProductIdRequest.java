@@ -1,5 +1,4 @@
-package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
-
+package com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductResponse {
+public class GetProductPhotosByProductIdRequest {
 	private int productId;
-	private String productName;
 }

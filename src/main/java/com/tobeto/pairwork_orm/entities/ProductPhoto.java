@@ -19,7 +19,7 @@ public class ProductPhoto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="package_height")
+    @Column(name="product_photo_url")
     private String productPhotoUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -9,11 +9,23 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateProductByIdRequest {
+public class UpdateProductRequest {
 	
-    private int id;
+    private int productId;
     
     @NotBlank(message = "İsim alanı boş olamaz.")
     @Size(min=2, max=50, message = "İsim alanı 2 ile 50 karakter arasında olmalıdır.")
     private String productName;
+	
+	private String packageHeight;
+
+	private String packageWidth;
+	
+	private String packageWeight;
+	
+	private String categoryName;
+	
+	private double unitPrice; 
+	
+	private double unitInStock; 
 }

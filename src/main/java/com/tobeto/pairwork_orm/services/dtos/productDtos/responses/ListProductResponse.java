@@ -1,6 +1,5 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductByIdResponse {
-	
-	private int productId;
+public class ListProductResponse {
+    private int productId;
 
 	private String productName;
 	
@@ -25,5 +23,4 @@ public class GetProductByIdResponse {
 	private double unitPrice; 
 	
 	private double unitInStock; 
-	
 }

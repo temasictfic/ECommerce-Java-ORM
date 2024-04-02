@@ -19,11 +19,11 @@ public class Category {
     @Column(name = "category_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int categoryId;
 
     @Column(name = "category_name")
-    private String name;
+    private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Product> products;
 }

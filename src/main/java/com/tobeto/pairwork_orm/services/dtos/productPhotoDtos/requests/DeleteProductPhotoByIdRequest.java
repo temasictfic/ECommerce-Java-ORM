@@ -1,4 +1,4 @@
-package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
+package com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdatedProductResponse {
-    private String message;
+public class DeleteProductPhotoByIdRequest {
+	private int id;
 }

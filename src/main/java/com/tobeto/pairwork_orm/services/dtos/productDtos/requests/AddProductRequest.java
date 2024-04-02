@@ -1,13 +1,9 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.requests;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.tobeto.pairwork_orm.entities.Category;
-import com.tobeto.pairwork_orm.entities.ProductPhoto;
-import com.tobeto.pairwork_orm.entities.Seller;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import java.util.List;
+
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -15,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -42,8 +37,8 @@ public class AddProductRequest {
     private int unitInStock;
 
     private int categoryId;
-
-    private List<ProductPhoto> productPhotos;
+    
+    private List<AddProductPhotoRequest> productPhotos;
 /*
     private List<Seller> sellers;*/
 
