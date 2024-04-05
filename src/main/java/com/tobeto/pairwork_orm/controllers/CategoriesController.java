@@ -2,15 +2,11 @@ package com.tobeto.pairwork_orm.controllers;
 
 import com.tobeto.pairwork_orm.services.abstracts.CategoryService;
 import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.AddCategoryRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.AddCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.DeleteCategoryByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.ListAllCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.UpdatedCategoryResponse;
-
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.*;
 import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,24 +23,33 @@ public class CategoriesController {
 		this.categoryService = categoryService;
 	}
 
-	@GetMapping
-	public List<ListAllCategoryResponse> getAll() {
+	@GetMapping("/getAll")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ListCategoryResponse> getAll() {
 		return categoryService.getAll();
 	}
+	
+	@GetMapping("/getById")
+    @ResponseStatus(HttpStatus.OK)
+    public GetCategoryByIdResponse getById(GetCategoryRequest request) {
+        return categoryService.getById(request);
+    }
 
-	@PostMapping
+	@PostMapping("/add")
 	@ResponseStatus(HttpStatus.CREATED)
 	public AddCategoryResponse add(@RequestBody @Valid AddCategoryRequest request) {
 		return categoryService.add(request);
 	}
 
-	@PutMapping
-	public UpdatedCategoryResponse update(@RequestBody @Valid UpdateCategoryByIdRequest request) {
+	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.OK)
+	public UpdatedCategoryResponse update(@RequestBody @Valid UpdateCategoryRequest request) {
 		return categoryService.update(request);
 	}
 
-	@DeleteMapping
-	public DeleteCategoryByIdResponse delete(@RequestBody DeleteCategoryByIdRequest request) {
+	@DeleteMapping("/delete")
+	@ResponseStatus(HttpStatus.OK)
+	public DeleteCategoryByIdResponse delete(@RequestBody DeleteCategoryRequest request) {
 		return categoryService.delete(request);
 	}
 }

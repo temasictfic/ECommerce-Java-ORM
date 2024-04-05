@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCategoryByIdRequest {
+public class UpdateCategoryRequest {
 	
-    private int id;
+    private int categoryId;
     
     @NotBlank(message = "İsim alanı boş olamaz.")
     @Size(min=2, max=50, message = "İsim alanı 2 ile 50 karakter arasında olmalıdır.")

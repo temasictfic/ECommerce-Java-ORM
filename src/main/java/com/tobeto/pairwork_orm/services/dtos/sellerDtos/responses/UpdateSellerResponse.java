@@ -1,12 +1,13 @@
-package com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses;
+package com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class DeleteProductPhotoByIdResponse {
+@NoArgsConstructor
+public class UpdateSellerResponse {
+	
 	private String message;
 }

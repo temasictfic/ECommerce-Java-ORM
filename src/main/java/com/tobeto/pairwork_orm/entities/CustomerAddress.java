@@ -1,26 +1,24 @@
 package com.tobeto.pairwork_orm.entities;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="customer_shipping_addresses")
-public class ShippingAddress {
+@Table(name="customer_addresses")
+public class CustomerAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shipping_address_id")
+    @Column(name = "customer_address_id")
     private int id;
 
     @ManyToOne
@@ -49,7 +47,7 @@ public class ShippingAddress {
     private Country country;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "shippingAddress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customerAddress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> orders;
 
 }

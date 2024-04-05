@@ -1,71 +1,57 @@
 package com.tobeto.pairwork_orm.services.concretes;
 
 import com.tobeto.pairwork_orm.core.utilities.exceptions.types.BusinessException;
-import com.tobeto.pairwork_orm.core.utilities.mapping.ModelMapperService;
 import com.tobeto.pairwork_orm.entities.Category;
 import com.tobeto.pairwork_orm.repositories.CategoryRepository;
 import com.tobeto.pairwork_orm.services.abstracts.CategoryService;
 import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.AddCategoryRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.UpdatedCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.AddCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.DeleteCategoryByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.GetCategoryByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.ListAllCategoryResponse;
-
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.*;
+import com.tobeto.pairwork_orm.services.mappers.CategoryMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryRepository categoryRepository;
 
-	private ModelMapperService modelMapperService;
-
-	public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapperService modelMapperService) {
-		this.categoryRepository = categoryRepository;
-		this.modelMapperService = modelMapperService;
-	}
-
 	@Override
 	public AddCategoryResponse add(AddCategoryRequest request) {
 		categoryWithSameNameShouldNotExist(request.getCategoryName());
 
-		Category category = this.modelMapperService.forRequest().map(request, Category.class);
+		Category category = CategoryMapper.INSTANCE.mapAddCategoryRequestToCategory(request);
 
 		Category savedCategory = categoryRepository.save(category);
 
-		AddCategoryResponse response = this.modelMapperService.forResponse().map(savedCategory,
-				AddCategoryResponse.class);
+		AddCategoryResponse response = new AddCategoryResponse("Category added.");
 
 		return response;
 	}
 
 	@Override
-	public UpdatedCategoryResponse update(UpdateCategoryByIdRequest request) {
+	public UpdatedCategoryResponse update(UpdateCategoryRequest request) {
 		categoryWithSameNameShouldNotExist(request.getCategoryName());
 
-		Category category = categoryRepository.findById(request.getId()).orElseThrow();
-
-		category = this.modelMapperService.forRequest().map(request, Category.class);
+		Category category = CategoryMapper.INSTANCE.mapUpdateCategoryRequestToCategory(request);
 
 		// category.setCategoryName(request.getCategoryName());
 		Category updatedCategory = categoryRepository.save(category);
 
-		UpdatedCategoryResponse response = this.modelMapperService.forResponse().map(updatedCategory,
-				UpdatedCategoryResponse.class);
+		UpdatedCategoryResponse response = new UpdatedCategoryResponse("Category updated.");
 
 		return response;
 	}
 
 	@Override
-	public DeleteCategoryByIdResponse delete(DeleteCategoryByIdRequest request) {
+	public DeleteCategoryByIdResponse delete(DeleteCategoryRequest request) {
 		Category category = categoryRepository.findById(request.getId()).orElseThrow();
 
 		categoryRepository.delete(category);
@@ -76,22 +62,20 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<ListAllCategoryResponse> getAll() {
+	public List<ListCategoryResponse> getAll() {
 		List<Category> categories = categoryRepository.findAll();
 
-		List<ListAllCategoryResponse> response = categories.stream()
-				.map(category -> this.modelMapperService.forResponse().map(category, ListAllCategoryResponse.class))
-				.collect(Collectors.toList());
+		List<ListCategoryResponse> response = categories.stream()
+				.map(CategoryMapper.INSTANCE::mapCategoryToListCategoryResponse).collect(Collectors.toList());
 
 		return response;
 	}
 
 	@Override
-	public GetCategoryByIdResponse getById(GetCategoryByIdRequest request) {
+	public GetCategoryByIdResponse getById(GetCategoryRequest request) {
 		Category category = categoryRepository.findById(request.getId()).orElseThrow();
 
-		GetCategoryByIdResponse response = this.modelMapperService.forResponse().map(category,
-				GetCategoryByIdResponse.class);
+		GetCategoryByIdResponse response = CategoryMapper.INSTANCE.mapCategoryToGetCategoryByIdResponse(category);
 
 		return response;
 	}

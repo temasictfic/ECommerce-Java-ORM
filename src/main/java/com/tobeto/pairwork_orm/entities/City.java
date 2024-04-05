@@ -30,6 +30,6 @@ public class City {
 
     @JsonIgnore
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ShippingAddress> shippingAddresses;
+    private List<CustomerAddress> shippingAddresses;
 
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteCategoryByIdRequest {
+public class DeleteCategoryRequest {
 	
 	private int id;
 

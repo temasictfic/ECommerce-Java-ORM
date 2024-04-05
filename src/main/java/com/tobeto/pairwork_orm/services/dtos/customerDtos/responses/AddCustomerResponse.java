@@ -1,13 +1,12 @@
-package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
-
+package com.tobeto.pairwork_orm.services.dtos.customerDtos.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class DeleteProductByIdResponse {
+@NoArgsConstructor
+public class AddCustomerResponse {
 	private String message;
 }

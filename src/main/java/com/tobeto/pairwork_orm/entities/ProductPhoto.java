@@ -17,7 +17,7 @@ public class ProductPhoto {
     @Id
     @Column(name="photo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int productPhotoId;
 
     @Column(name="product_photo_url")
     private String productPhotoUrl;

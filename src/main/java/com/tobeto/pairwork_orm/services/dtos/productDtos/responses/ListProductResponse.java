@@ -1,8 +1,11 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
 
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.GetProductPhotosResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +21,11 @@ public class ListProductResponse {
 	
 	private String packageWeight;
 	
-	private String categoryName;
+	private int categoryId;
 	
 	private double unitPrice; 
 	
 	private double unitInStock; 
+		
+	private List<GetProductPhotosResponse> productPhotos;
 }

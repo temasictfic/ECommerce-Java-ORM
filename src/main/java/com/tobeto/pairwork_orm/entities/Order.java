@@ -1,14 +1,13 @@
 package com.tobeto.pairwork_orm.entities;
 
-import java.util.List;
-
-import java.time.LocalDate;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,8 +40,8 @@ public class Order {
     private Payment payment;
 
     @ManyToOne
-    @JoinColumn(name="shipping_address_id")
-    private ShippingAddress shippingAddress;
+    @JoinColumn(name="customer_address_id")
+    private CustomerAddress customerAddress;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(

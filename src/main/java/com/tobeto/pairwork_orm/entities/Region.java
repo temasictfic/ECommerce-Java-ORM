@@ -1,14 +1,13 @@
 package com.tobeto.pairwork_orm.entities;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,5 +30,5 @@ public class Region {
 
     @JsonIgnore
     @OneToMany(mappedBy = "region", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ShippingAddress> shippingAddresses;
+    private List<CustomerAddress> shippingAddresses;
 }

@@ -23,7 +23,7 @@ public class UpdateProductRequest {
 	
 	private String packageWeight;
 	
-	private String categoryName;
+	private int categoryId;
 	
 	private double unitPrice; 
 	

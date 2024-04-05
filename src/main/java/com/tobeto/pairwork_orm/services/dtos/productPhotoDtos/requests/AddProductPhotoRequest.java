@@ -1,13 +1,12 @@
 package com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductPhotoRequest {
-	
+public class AddProductPhotoRequest {	
+	private int productId;
 	private String productPhotoUrl;
 }

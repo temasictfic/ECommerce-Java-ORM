@@ -1,27 +1,23 @@
 package com.tobeto.pairwork_orm.services.abstracts;
 
-import java.util.List;
-
 import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.AddCategoryRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.UpdatedCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.AddCategoryResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.DeleteCategoryByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.GetCategoryByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.ListAllCategoryResponse;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.DeleteCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryRequest;
+import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.*;
+
+import java.util.List;
 
 
 public interface CategoryService {
 	
     AddCategoryResponse add(AddCategoryRequest request);
     
-    UpdatedCategoryResponse update(UpdateCategoryByIdRequest request);
+    UpdatedCategoryResponse update(UpdateCategoryRequest request);
     
-    DeleteCategoryByIdResponse delete(DeleteCategoryByIdRequest request);
+    DeleteCategoryByIdResponse delete(DeleteCategoryRequest request);
     
-    List<ListAllCategoryResponse> getAll();
+    List<ListCategoryResponse> getAll();
  
-    GetCategoryByIdResponse getById(GetCategoryByIdRequest request);
+    GetCategoryByIdResponse getById(GetCategoryRequest request);
 }

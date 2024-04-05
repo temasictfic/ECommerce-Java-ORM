@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ListAllCategoryResponse {
-    private int id;
-    private String name;
+public class ListCategoryResponse {
+    private int categoryId;
+    private String categoryName;
 }

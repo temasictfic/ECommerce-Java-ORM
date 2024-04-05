@@ -1,20 +1,14 @@
 package com.tobeto.pairwork_orm.controllers;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import com.tobeto.pairwork_orm.services.abstracts.ProductPhotoService;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.DeleteProductPhotoRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.GetProductPhotosRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.DeleteProductPhotoResponse;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.GetProductPhotosResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import org.springframework.http.HttpStatus;
-
-import com.tobeto.pairwork_orm.services.abstracts.ProductPhotoService;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.DeleteProductPhotoByIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.GetProductPhotosByProductIdRequest;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.DeleteProductPhotoByIdResponse;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.GetProductPhotoByProductIdResponse;
 
 @RestController
 @RequestMapping("/api/product-photos")
@@ -28,14 +22,14 @@ public class ProductPhotosController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<GetProductPhotoByProductIdResponse> getProductPhotosByProductId(
-			GetProductPhotosByProductIdRequest request) {
+	public List<GetProductPhotosResponse> getProductPhotosByProductId(
+			GetProductPhotosRequest request) {
 		return photoService.getProductPhotosByProductId(request);
 	}
 	
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.OK)
-	public DeleteProductPhotoByIdResponse delete(DeleteProductPhotoByIdRequest request) {
+	public DeleteProductPhotoResponse delete(DeleteProductPhotoRequest request) {
 		return photoService.delete(request);
 	}
 

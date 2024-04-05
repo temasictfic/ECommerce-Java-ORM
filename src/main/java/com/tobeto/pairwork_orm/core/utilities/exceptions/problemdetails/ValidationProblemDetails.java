@@ -1,10 +1,10 @@
 package com.tobeto.pairwork_orm.core.utilities.exceptions.problemdetails;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter

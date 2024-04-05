@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductByIdRequest {
-	private int id;
+public class GetProductRequest {
+	private int productId;
 }

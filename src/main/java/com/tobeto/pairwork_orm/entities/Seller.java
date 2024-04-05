@@ -1,13 +1,10 @@
 package com.tobeto.pairwork_orm.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.List;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,9 +18,18 @@ public class Seller extends User{
 
     @Column(name = "company_name")
     private String companyName;
+    
+    @Column(name = "contact_name")
+    private String contactName;
+    
+    @Column(name = "contact_title")
+    private String contactTitle;
 
     @Column(name = "website")
     private String website;
+    
+    @Column(name = "tax_number")
+    private String taxNumber;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "seller_products", joinColumns = @JoinColumn(name = "sellerId"),

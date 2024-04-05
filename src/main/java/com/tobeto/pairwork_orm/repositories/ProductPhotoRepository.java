@@ -1,10 +1,9 @@
 package com.tobeto.pairwork_orm.repositories;
 
-import java.util.List;
-
+import com.tobeto.pairwork_orm.entities.ProductPhoto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tobeto.pairwork_orm.entities.ProductPhoto;
+import java.util.List;
 
 public interface ProductPhotoRepository extends JpaRepository<ProductPhoto, Integer>{
 	List<ProductPhoto> getProductPhotosByProduct_ProductId(int productId);
