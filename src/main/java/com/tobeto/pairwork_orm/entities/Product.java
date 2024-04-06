@@ -22,6 +22,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
+    @Column(name="product_name")
+    private String productName;
+
     @Column(name="package_height")
     private String packageHeight;
 
@@ -31,14 +34,14 @@ public class Product {
     @Column(name="package_weight")
     private String packageWeight;
 
-    @Column(name="product_name")
-    private String productName;
-
     @Column(name="unit_price")
     private double unitPrice;
 
     @Column(name="unit_in_stock")
     private int unitInStock;
+
+    @Column(name="descriprtion")
+    private String descriprtion;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -51,10 +54,12 @@ public class Product {
     @ManyToMany(mappedBy = "products")
     private List<Cart> carts;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
-
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany
+    @JoinTable(name="product_sellers",
+            joinColumns = @JoinColumn(name="product_id"),
+            inverseJoinColumns = @JoinColumn(name="supplier_id"))
     private List<Seller> sellers;
 
+    @OneToMany(mappedBy = "product")
+    private List<OrderProduct> orderProducts;
 }

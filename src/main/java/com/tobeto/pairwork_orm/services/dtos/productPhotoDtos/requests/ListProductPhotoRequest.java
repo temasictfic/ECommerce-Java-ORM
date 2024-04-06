@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductPhotosRequest {
+public class ListProductPhotoRequest {
 	private int productId;
 }

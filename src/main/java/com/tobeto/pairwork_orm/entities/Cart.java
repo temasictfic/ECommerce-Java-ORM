@@ -15,10 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "carts")
 public class Cart {
-    @Column(name = "cart_id")
     @Id
+    @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int cartId;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cart_products",

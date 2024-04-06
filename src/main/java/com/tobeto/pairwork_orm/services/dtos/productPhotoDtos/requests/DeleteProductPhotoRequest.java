@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeleteProductPhotoRequest {
-	private int id;
+	private int productPhotoId;
 }

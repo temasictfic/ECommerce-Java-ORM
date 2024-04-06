@@ -19,10 +19,10 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "country_id")
-    private int id;
+    private int countryId;
 
     @Column(name = "country_name")
-    private String name;
+    private String countryName;
 
     @JsonIgnore
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -30,5 +30,5 @@ public class Country {
 
     @JsonIgnore
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CustomerAddress> shippingAddresses;
+    private List<CustomerAddress> customerAddresses;
 }

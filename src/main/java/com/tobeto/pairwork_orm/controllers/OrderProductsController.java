@@ -1,4 +1,4 @@
 package com.tobeto.pairwork_orm.controllers;
 
-public class OrderDetailsController {
+public class OrderProductsController {
 }

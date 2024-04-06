@@ -42,7 +42,7 @@ public class ProductsController {
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public UpdateProductResponse update(@RequestBody @Valid UpdateProductRequest request) {
+    public UpdatedProductResponse update(@RequestBody @Valid UpdateProductRequest request) {
         return productService.update(request);
     }
 

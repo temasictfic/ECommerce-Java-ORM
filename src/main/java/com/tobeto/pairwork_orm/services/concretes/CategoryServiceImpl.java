@@ -10,6 +10,7 @@ import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.GetCategoryRe
 import com.tobeto.pairwork_orm.services.dtos.categoryDtos.requests.UpdateCategoryRequest;
 import com.tobeto.pairwork_orm.services.dtos.categoryDtos.responses.*;
 import com.tobeto.pairwork_orm.services.mappers.CategoryMapper;
+import com.tobeto.pairwork_orm.services.rules.abstracts.CategoryBusinessRuleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,22 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private CategoryRepository categoryRepository;
 
+	private CategoryBusinessRuleService categoryBusinessRuleService;
+
 	@Override
 	public AddCategoryResponse add(AddCategoryRequest request) {
-		categoryWithSameNameShouldNotExist(request.getCategoryName());
+		categoryBusinessRuleService.categoryWithSameNameShouldNotExist(request.getCategoryName());
 
-		Category category = CategoryMapper.INSTANCE.mapAddCategoryRequestToCategory(request);
+		Optional<Category> optionalParentCategory = categoryRepository.findById(request.getParentId());
 
-		Category savedCategory = categoryRepository.save(category);
+		Category requestedCategory = CategoryMapper.INSTANCE.mapAddCategoryRequestToCategory(request);
+
+		if (optionalParentCategory.isPresent())
+		{
+			Category parentCategory = optionalParentCategory.get();
+			requestedCategory.setParentCategory(parentCategory);
+		}
+		categoryRepository.save(requestedCategory);
 
 		AddCategoryResponse response = new AddCategoryResponse("Category added.");
 
@@ -38,12 +48,29 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public UpdatedCategoryResponse update(UpdateCategoryRequest request) {
-		categoryWithSameNameShouldNotExist(request.getCategoryName());
+		//Category category = CategoryMapper.INSTANCE.mapUpdateCategoryRequestToCategory(request);
+		Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
+		// parentId null kontrolü
+		if (request.getParentId() != null) {
+			Optional<Category> optionalParentCategory = categoryRepository.findById(request.getParentId());
+			if (optionalParentCategory.isPresent()) {
+				category.setParentCategory(optionalParentCategory.get());
+			} else {
+				throw new BusinessException("Parent category not found.");
+			}
+		}
 
-		Category category = CategoryMapper.INSTANCE.mapUpdateCategoryRequestToCategory(request);
+		// categoryName güncelleme
+		if (request.getCategoryName() != null){
+			if (!category.getCategoryName().equals(request.getCategoryName())){
+				categoryBusinessRuleService.categoryWithSameNameShouldNotExist(request.getCategoryName());
+			}
+			category.setCategoryName(request.getCategoryName());
+		}
 
-		// category.setCategoryName(request.getCategoryName());
-		Category updatedCategory = categoryRepository.save(category);
+
+		// parentCategory güncelleme işlemi burada olmamalı, böylece mevcut parent korunur
+		categoryRepository.save(category);
 
 		UpdatedCategoryResponse response = new UpdatedCategoryResponse("Category updated.");
 
@@ -52,8 +79,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public DeleteCategoryByIdResponse delete(DeleteCategoryRequest request) {
-		Category category = categoryRepository.findById(request.getId()).orElseThrow();
-
+		Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
 		categoryRepository.delete(category);
 
 		DeleteCategoryByIdResponse response = new DeleteCategoryByIdResponse("Category deleted.");
@@ -73,19 +99,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public GetCategoryByIdResponse getById(GetCategoryRequest request) {
-		Category category = categoryRepository.findById(request.getId()).orElseThrow();
+		Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow();
 
 		GetCategoryByIdResponse response = CategoryMapper.INSTANCE.mapCategoryToGetCategoryByIdResponse(category);
 
 		return response;
-	}
-
-	// 1. => Anlaşılabilirlik
-	// 2. => Uzunluk
-	private void categoryWithSameNameShouldNotExist(String name) {
-		Optional<Category> categoryWithSameName = categoryRepository.findByCategoryNameIgnoreCase(name);
-
-		if (categoryWithSameName.isPresent())
-			throw new BusinessException("Aynı isimde bir kategori zaten var.");
 	}
 }

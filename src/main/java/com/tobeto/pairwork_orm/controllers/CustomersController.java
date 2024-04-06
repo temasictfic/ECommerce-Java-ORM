@@ -6,7 +6,7 @@ import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.DeleteCustome
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.UpdateCustomerRequest;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.AddCustomerResponse;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.DeleteCustomerResponse;
-import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.UpdateCustomerResponse;
+import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.UpdatedCustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +29,7 @@ public class CustomersController {
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public UpdateCustomerResponse update(@RequestBody @Valid UpdateCustomerRequest request) {
+    public UpdatedCustomerResponse update(@RequestBody @Valid UpdateCustomerRequest request) {
         return customerService.update(request);
     }
 

@@ -16,7 +16,7 @@ public class SellerAddress {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "seller_address_id")
-    private int id;
+    private int sellerAddressId;
 
     @ManyToOne
     @JoinColumn(name = "seller_id")

@@ -12,7 +12,7 @@ public interface ProductService {
 
     AddProductResponse add(AddProductRequest request);
 
-    UpdateProductResponse update(UpdateProductRequest request);
+    UpdatedProductResponse update(UpdateProductRequest request);
 
     DeleteProductResponse delete(DeleteProductRequest request);
 

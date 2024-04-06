@@ -6,7 +6,7 @@ import com.tobeto.pairwork_orm.services.dtos.sellerDtos.requestes.DeleteSellerRe
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.requestes.UpdateSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.AddSellerResponse;
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.DeleteSellerResponse;
-import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.UpdateSellerResponse;
+import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.UpdatedSellerResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class SellersController {
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public UpdateSellerResponse update(@RequestBody @Valid UpdateSellerRequest request) {
+    public UpdatedSellerResponse update(@RequestBody @Valid UpdateSellerRequest request) {
         return sellerService.update(request);
     }
 

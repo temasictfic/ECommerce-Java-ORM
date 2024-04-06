@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
 		if (request.getProductPhotos() != null) {
 			for (AddProductPhotoRequest dto : request.getProductPhotos()) {
-				ProductPhoto productPhoto = ProductPhotoMapper.INSTANCE.productPhotoFromAddRequest(dto);
+				ProductPhoto productPhoto = ProductPhotoMapper.INSTANCE.mapAddProductPhotoRequestToProductPhoto(dto);
 				productPhoto.setProduct(product); // Product photo ile ilişkilendirme
 				productPhotos.add(productPhoto);
 			}
@@ -61,21 +61,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public UpdateProductResponse update(UpdateProductRequest request) {
-		Product existingProduct = productRepository.findById(request.getProductId()).orElseThrow();
-
-		existingProduct = ProductMapper.INSTANCE.mapUpdateProductRequestToProduct(request);
+	public UpdatedProductResponse update(UpdateProductRequest request) {
+		Product existingProduct = ProductMapper.INSTANCE.mapUpdateProductRequestToProduct(request);
 
 		productRepository.save(existingProduct);
 
-		UpdateProductResponse response = new UpdateProductResponse("Product updated.");
+		UpdatedProductResponse response = new UpdatedProductResponse("Product updated.");
 
 		return response;
 	}
 
 	@Override
 	public DeleteProductResponse delete(DeleteProductRequest request) {
-		Product product = productRepository.findById(request.getId()).orElseThrow();
+		Product product = productRepository.findById(request.getProductId()).orElseThrow();
 
 		productRepository.delete(product);
 
@@ -96,10 +94,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public GetProductResponse getById(GetProductRequest request) {
-
 		Product product = productRepository.findById(request.getProductId()).orElseThrow();
 
-		GetProductResponse response = ProductMapper.INSTANCE.mapProductToGetProductByIdResponse(product);
+		GetProductResponse response = ProductMapper.INSTANCE.mapProductToGetProductResponse(product);
 
 		return response;
 	}

@@ -1,5 +1,6 @@
 package com.tobeto.pairwork_orm;
 
+import com.tobeto.pairwork_orm.entities.Category;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

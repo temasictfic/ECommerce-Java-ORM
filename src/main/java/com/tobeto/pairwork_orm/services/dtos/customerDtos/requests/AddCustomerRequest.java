@@ -35,6 +35,4 @@ public class AddCustomerRequest {
 	
 	@Past(message = "Doğum tarihi geçmiş bir tarih olmalıdır.")
 	private LocalDate birthDate;
-	
-	private Set<String> roles;
 }

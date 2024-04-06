@@ -19,11 +19,7 @@ public class CustomerAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_address_id")
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private int customerAddressId;
 
     @Column(name = "address1")
     private String address1;
@@ -33,6 +29,10 @@ public class CustomerAddress {
 
     @Column(name = "postal_code")
     private String postal_code;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "city_id")

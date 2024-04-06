@@ -17,10 +17,10 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "role_id")
+    private int roleId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "name", length = 20)
-    private ERole name;
+    @Column(name = "role_name", length = 20)
+    private ERole roleName;
 }

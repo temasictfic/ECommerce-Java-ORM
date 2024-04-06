@@ -8,7 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeleteCategoryRequest {
-	
-	private int id;
-
+	private int categoryId;
 }

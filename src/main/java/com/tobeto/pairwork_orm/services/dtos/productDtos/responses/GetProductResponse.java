@@ -1,6 +1,6 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
 
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.GetProductPhotosResponse;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.ListProductPhotoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,8 @@ public class GetProductResponse {
 	private String packageWidth;
 	
 	private String packageWeight;
+
+	private String descriprtion;
 	
 	private String categoryName;
 	
@@ -28,6 +30,6 @@ public class GetProductResponse {
 	
 	private double unitInStock;
 	
-	private List<GetProductPhotosResponse> productPhotos;
+	private List<ListProductPhotoResponse> productPhotos;
 	
 }

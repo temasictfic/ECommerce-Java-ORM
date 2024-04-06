@@ -1,6 +1,8 @@
 package com.tobeto.pairwork_orm.services.concretes;
 
 import com.tobeto.pairwork_orm.core.utilities.exceptions.types.BusinessException;
+import com.tobeto.pairwork_orm.entities.ERole;
+import com.tobeto.pairwork_orm.entities.Role;
 import com.tobeto.pairwork_orm.entities.Seller;
 import com.tobeto.pairwork_orm.repositories.RoleRepository;
 import com.tobeto.pairwork_orm.repositories.SellerRepository;
@@ -10,10 +12,14 @@ import com.tobeto.pairwork_orm.services.dtos.sellerDtos.requestes.DeleteSellerRe
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.requestes.UpdateSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.AddSellerResponse;
 import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.DeleteSellerResponse;
-import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.UpdateSellerResponse;
-import com.tobeto.pairwork_orm.services.rules.UserBusinessRules;
+import com.tobeto.pairwork_orm.services.dtos.sellerDtos.responses.UpdatedSellerResponse;
+import com.tobeto.pairwork_orm.services.mappers.SellerMapper;
+import com.tobeto.pairwork_orm.services.rules.concretes.UserBusinessRuleImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +27,7 @@ public class SellerServiceImpl implements SellerService{
 	
 	private SellerRepository sellerRepository;
 	
-	private UserBusinessRules userBusinessRules;
+	private UserBusinessRuleImpl userBusinessRules;
 	
 	private RoleRepository roleRepository;
 	
@@ -32,43 +38,21 @@ public class SellerServiceImpl implements SellerService{
 		userBusinessRules.checkIfUsernameAlreadyExists(request.getUsername());
 		userBusinessRules.checkIfEmailAlreadyExists(request.getEmail());
 		
-		/*Seller seller = this.mapperService.forRequest().map(request, Seller.class);
-		
-		Set<String> requestedRoles = request.getRoles();
+		Seller seller = SellerMapper.INSTANCE.mapAddSellerRequestToSeller(request);
 
 		Set<Role> roles = new HashSet<>();
 
-		Role sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
+		Role sellerRole = roleRepository.findByRoleName(ERole.ROLE_SELLER)
 				.orElseThrow(() -> new BusinessException("Error: Role is not found."));
 		roles.add(sellerRole);
 
-		if (requestedRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
-			requestedRoles.forEach(role -> {
-				switch (role) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(adminRole);
-					break;
-				case "customer":
-					Role customerRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(customerRole);
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
-		}
+		Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+				.orElseThrow(() -> new BusinessException("Error: Role is not found."));
+		roles.add(userRole);
+
 		seller.setRoles(roles);
 
-		sellerRepository.save(seller);*/
+		sellerRepository.save(seller);
 
 		AddSellerResponse response = new AddSellerResponse("Seller added.");
 
@@ -76,20 +60,13 @@ public class SellerServiceImpl implements SellerService{
 	}
 
 	@Override
-	public UpdateSellerResponse update(UpdateSellerRequest request) {
+	public UpdatedSellerResponse update(UpdateSellerRequest request) {
 
-		/*Seller existingSeller = sellerRepository.findById(request.getSellerId())
-				.orElseThrow(() -> new BusinessException("Error: Seller is not found."));
-		
-		userBusinessRules.checkIfUsernameAlreadyExists(request.getUsername());
-		userBusinessRules.checkIfEmailAlreadyExists(request.getEmail());
-		
+		Seller existingSeller = SellerMapper.INSTANCE.mapUpdateSellerRequestToSeller(request);
 
-		existingSeller = this.mapperService.forRequest().map(request, Seller.class);
+		sellerRepository.save(existingSeller);
 
-		sellerRepository.save(existingSeller);*/
-
-		UpdateSellerResponse response = new UpdateSellerResponse("Seller updated.");
+		UpdatedSellerResponse response = new UpdatedSellerResponse("Seller updated.");
 
 		return response;
 	}

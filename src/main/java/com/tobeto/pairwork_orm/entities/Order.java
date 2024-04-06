@@ -16,16 +16,25 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name="orders")
 public class Order {
-    @Column(name="order_id")
     @Id
+    @Column(name="order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int orderId;
 
-    @Column(name="order_date")
-    private LocalDate date;
+    @Column(name="order_created_date")
+    private LocalDate orderCreatedDate;
 
-    @Column(name="shipped_date")
-    private LocalDate shippedDate;
+    @Column(name="order_shipped_date")
+    private LocalDate orderShippedDate;
+
+    @Column(name="order_delivered_date")
+    private LocalDate orderDeliveredDate;
+
+    @Column(name="order_returned_date")
+    private LocalDate orderReturnedDate;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @ManyToOne
     @JoinColumn(name="customer_id")
@@ -43,11 +52,6 @@ public class Order {
     @JoinColumn(name="customer_address_id")
     private CustomerAddress customerAddress;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "order_products",
-            joinColumns = { @JoinColumn(name = "order_id") },
-            inverseJoinColumns = { @JoinColumn(name = "product_id") }
-    )
-    private List<Product> products;
+    @OneToMany(mappedBy = "order")
+    private List<OrderProduct> orderProducts;
 }

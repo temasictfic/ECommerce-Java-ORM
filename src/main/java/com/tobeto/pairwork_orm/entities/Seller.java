@@ -31,9 +31,7 @@ public class Seller extends User{
     @Column(name = "tax_number")
     private String taxNumber;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "seller_products", joinColumns = @JoinColumn(name = "sellerId"),
-            inverseJoinColumns = @JoinColumn(name = "productId"))
+    @ManyToMany(mappedBy = "sellers")
     private List<Product> products;
 
     @JsonIgnore

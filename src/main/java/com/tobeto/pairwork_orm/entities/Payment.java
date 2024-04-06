@@ -16,11 +16,11 @@ public class Payment {
     @Column(name = "payment_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int paymentId;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "name", length = 20)
-    private EPayment name;
+    @Column(name = "payment_name", length = 20)
+    private EPayment paymentName;
 
     @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
     private Order order;

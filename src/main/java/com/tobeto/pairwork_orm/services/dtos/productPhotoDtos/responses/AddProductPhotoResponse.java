@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddProductPhotoResponse {
-	
 	private String productPhotoUrl;
 }

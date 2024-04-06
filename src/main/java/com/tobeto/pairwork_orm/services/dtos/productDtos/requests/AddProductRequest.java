@@ -1,9 +1,7 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.requests;
 
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.List;
@@ -28,12 +26,15 @@ public class AddProductRequest {
     @NotBlank(message = "Paket ağırlığı boş olamaz.")
     private String packageWeight;
 
-    @Positive(message = "Birim fiyatı pozitif olmalıdır.")
+    @PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
     private double unitPrice;
 
-    @Positive(message = "Stok adedi pozitif olmalıdır.")
+    @PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
     private int unitInStock;
 
+    private String descriprtion;
+
+    @NotEmpty(message = "Kategori seçilmelidir.")
     private int categoryId;
     
     private List<AddProductPhotoRequest> productPhotos;

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetCategoryRequest {
-	private int id;
+	private int categoryId;
 }

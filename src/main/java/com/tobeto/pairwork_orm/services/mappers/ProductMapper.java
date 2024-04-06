@@ -20,14 +20,11 @@ public interface ProductMapper {
 	@Mapping(target = "category.categoryId", source = "categoryId")
 	Product mapUpdateProductRequestToProduct(UpdateProductRequest request);
 
-
 	//@Mapping(target = "productPhotos", ignore = true) // Örnek olarak ignore edildi
-	@Mapping(target = "categoryId", source = "category.categoryId")
-    ListProductResponse mapProductToListProductResponse(Product product);
-	
-	Product mapGetProductByIdRequestToProduct(GetProductRequest request);
-	
 	@Mapping(target = "categoryName", source = "category.categoryName")
-	GetProductResponse mapProductToGetProductByIdResponse(Product product);
+    ListProductResponse mapProductToListProductResponse(Product product);
+
+	@Mapping(target = "categoryName", source = "category.categoryName")
+	GetProductResponse mapProductToGetProductResponse(Product product);
 	
 }

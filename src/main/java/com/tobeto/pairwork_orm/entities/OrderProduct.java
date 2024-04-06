@@ -14,29 +14,23 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order_details")
-public class OrderDetail {
+@Table(name = "order_products")
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_detail_id")
-    private int id;
+    @Column(name = "order_product_id")
+    private int orderProductId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @ManyToOne
+    @JoinColumn(name="order_id")
     private Order order;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "order_detail_products", joinColumns = @JoinColumn(name = "order_detail_id"),
-            inverseJoinColumns = @JoinColumn(name = "productId"))
-    private Set<Product> products = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private Product product;
 
-    @Column(name = "total_amount")
-    private double totalAmount;
+    private int quantity;
 
-    @Column(name = "shipping_amount")
-    private double shippingAmount;
-
-    @Column(name = "discount")
-    private double discount;
+    private double totalPrice;
 }

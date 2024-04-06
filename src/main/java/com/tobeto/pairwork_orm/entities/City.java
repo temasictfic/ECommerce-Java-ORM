@@ -19,10 +19,10 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "city_id")
-    private int id;
+    private int cityId;
 
     @Column(name = "city_name")
-    private String name;
+    private String cityName;
 
     @ManyToOne
     @JoinColumn(name = "region_id")
@@ -30,6 +30,6 @@ public class City {
 
     @JsonIgnore
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<CustomerAddress> shippingAddresses;
+    private List<CustomerAddress> customerAddresses;
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Table(name="customers")
 public class Customer extends User{
     @Column(name="birth_date")
-    private LocalDate date;
+    private LocalDate birthDate;
 
     @Column(name="first_name")
     private String firstName;

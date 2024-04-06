@@ -2,6 +2,8 @@ package com.tobeto.pairwork_orm.services.concretes;
 
 import com.tobeto.pairwork_orm.core.utilities.exceptions.types.BusinessException;
 import com.tobeto.pairwork_orm.entities.Customer;
+import com.tobeto.pairwork_orm.entities.ERole;
+import com.tobeto.pairwork_orm.entities.Role;
 import com.tobeto.pairwork_orm.repositories.CustomerRepository;
 import com.tobeto.pairwork_orm.repositories.RoleRepository;
 import com.tobeto.pairwork_orm.services.abstracts.CustomerService;
@@ -10,10 +12,14 @@ import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.DeleteCustome
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.UpdateCustomerRequest;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.AddCustomerResponse;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.DeleteCustomerResponse;
-import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.UpdateCustomerResponse;
-import com.tobeto.pairwork_orm.services.rules.UserBusinessRules;
+import com.tobeto.pairwork_orm.services.dtos.customerDtos.responses.UpdatedCustomerResponse;
+import com.tobeto.pairwork_orm.services.mappers.CustomerMapper;
+import com.tobeto.pairwork_orm.services.rules.concretes.UserBusinessRuleImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -23,51 +29,29 @@ public class CustomerServiceImpl implements CustomerService {
 
 	private RoleRepository roleRepository;
 
-	private UserBusinessRules userBusinessRules;
+	private UserBusinessRuleImpl userBusinessRules;
 
 	@Override
 	public AddCustomerResponse add(AddCustomerRequest request) {
 
-		/*userBusinessRules.checkIfUsernameAlreadyExists(request.getUsername());
+		userBusinessRules.checkIfUsernameAlreadyExists(request.getUsername());
 		userBusinessRules.checkIfEmailAlreadyExists(request.getEmail());
 
-		Customer customer = this.mapperService.forRequest().map(request, Customer.class);
-
-		Set<String> requestedRoles = request.getRoles();
+		Customer customer = CustomerMapper.INSTANCE.mapAddCustomerRequestToCustomer(request);
 
 		Set<Role> roles = new HashSet<>();
 
-		Role customerRole = roleRepository.findByName(ERole.ROLE_CUSTOMER)
+		Role customerRole = roleRepository.findByRoleName(ERole.ROLE_CUSTOMER)
 				.orElseThrow(() -> new BusinessException("Error: Role is not found."));
 		roles.add(customerRole);
 
-		if (requestedRoles == null) {
-			Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-			roles.add(userRole);
-		} else {
-			requestedRoles.forEach(role -> {
-				switch (role) {
-				case "admin":
-					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(adminRole);
-					break;
-				case "seller":
-					Role sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(sellerRole);
-					break;
-				default:
-					Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new BusinessException("Error: Role is not found."));
-					roles.add(userRole);
-				}
-			});
-		}
+		Role userRole = roleRepository.findByRoleName(ERole.ROLE_USER)
+				.orElseThrow(() -> new BusinessException("Error: Role is not found."));
+		roles.add(userRole);
+
 		customer.setRoles(roles);
 
-		customerRepository.save(customer);*/
+		customerRepository.save(customer);
 
 		AddCustomerResponse response = new AddCustomerResponse("Customer added.");
 
@@ -75,19 +59,12 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public UpdateCustomerResponse update(UpdateCustomerRequest request) {
-		
-		/*userBusinessRules.checkIfUsernameAlreadyExists(request.getUsername());
-		userBusinessRules.checkIfEmailAlreadyExists(request.getEmail());
-		
-		Customer existingCustomer = customerRepository.findById(request.getCustomerId())
-				.orElseThrow(() -> new BusinessException("Error: Customer is not found."));
+	public UpdatedCustomerResponse update(UpdateCustomerRequest request) {
+		Customer existingCustomer= CustomerMapper.INSTANCE.mapUpdateCustomerRequestToCustomer(request);
 
-		existingCustomer = this.mapperService.forRequest().map(request, Customer.class);
+		customerRepository.save(existingCustomer);
 
-		customerRepository.save(existingCustomer);*/
-
-		UpdateCustomerResponse response = new UpdateCustomerResponse("Customer updated.");
+		UpdatedCustomerResponse response = new UpdatedCustomerResponse("Customer updated.");
 
 		return response;
 	}
