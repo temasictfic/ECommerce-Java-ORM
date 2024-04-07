@@ -1,30 +1,22 @@
 package com.tobeto.pairwork_orm.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order_products")
-public class OrderProduct {
-
+@Table(name = "cart_products")
+public class CartProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_product_id")
-    private int orderProductId;
+    @Column(name = "cart_product_id")
+    private int cartProductId;
 
     @ManyToOne
-    @JoinColumn(name="order_id")
-    private Order order;
+    @JoinColumn(name="cart_id")
+    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name="product_id")

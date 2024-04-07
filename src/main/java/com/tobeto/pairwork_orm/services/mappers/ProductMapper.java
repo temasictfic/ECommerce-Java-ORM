@@ -2,7 +2,6 @@ package com.tobeto.pairwork_orm.services.mappers;
 
 import com.tobeto.pairwork_orm.entities.Product;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AddProductRequest;
-import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.GetProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.UpdateProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.responses.GetProductResponse;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.responses.ListProductResponse;

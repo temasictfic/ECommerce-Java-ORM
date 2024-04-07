@@ -21,7 +21,7 @@ public class ListProductResponse {
 	
 	private String packageWeight;
 
-	private String descriprtion;
+	private String description;
 	
 	private String categoryName;
 	

@@ -13,6 +13,8 @@ import com.tobeto.pairwork_orm.services.dtos.productDtos.responses.*;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
 import com.tobeto.pairwork_orm.services.mappers.ProductMapper;
 import com.tobeto.pairwork_orm.services.mappers.ProductPhotoMapper;
+import com.tobeto.pairwork_orm.services.rules.abstracts.ProductBusinessRuleService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +29,14 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepository;
 
 	private ProductPhotoRepository productPhotoRepository;
+	
+	private ProductBusinessRuleService productBusinessRuleService;
 
 	@Override
 	public AddProductResponse add(AddProductRequest request) {
+		
+		productBusinessRuleService.productWithSameNameShouldNotExist(request.getProductName());
+		
 		// Product entity'sini oluşturma
 		Product product = ProductMapper.INSTANCE.mapAddProductRequestToProduct(request);
 

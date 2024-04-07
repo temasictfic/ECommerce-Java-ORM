@@ -22,6 +22,7 @@ public class Payment {
     @Column(name = "payment_name", length = 20)
     private EPayment paymentName;
 
-    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 }

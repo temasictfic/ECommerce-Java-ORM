@@ -36,6 +36,6 @@ public class Seller extends User{
 
     @JsonIgnore
     @OneToMany(mappedBy = "seller", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<OrderProduct> orderProducts;
 
 }

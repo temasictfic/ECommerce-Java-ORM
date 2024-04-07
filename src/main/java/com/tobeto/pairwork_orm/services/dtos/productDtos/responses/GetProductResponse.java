@@ -22,13 +22,13 @@ public class GetProductResponse {
 	
 	private String packageWeight;
 
-	private String descriprtion;
+	private String description;
 	
 	private String categoryName;
 	
 	private double unitPrice; 
 	
-	private double unitInStock;
+	private double unitsInStock;
 	
 	private List<ListProductPhotoResponse> productPhotos;
 	

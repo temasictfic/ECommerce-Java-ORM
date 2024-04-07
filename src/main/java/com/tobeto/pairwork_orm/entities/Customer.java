@@ -25,6 +25,6 @@ public class Customer extends User{
     @Column(name="last_name")
     private String lastName;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Cart> carts;
+    @OneToOne(mappedBy = "customer")
+    private Cart cart;
 }

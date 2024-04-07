@@ -1,6 +1,6 @@
 package com.tobeto.pairwork_orm.entities;
 
-public enum OrderStatus {
+public enum EOrderStatus {
     CREATED,
     SHIPPED,
     DELIVERED,

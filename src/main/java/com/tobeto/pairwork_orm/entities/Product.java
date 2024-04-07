@@ -2,17 +2,13 @@ package com.tobeto.pairwork_orm.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Table(name="products")
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
@@ -22,7 +18,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
-    @Column(name="product_name")
+    @Column(name="product_name", unique = true)
     private String productName;
 
     @Column(name="package_height")
@@ -37,11 +33,11 @@ public class Product {
     @Column(name="unit_price")
     private double unitPrice;
 
-    @Column(name="unit_in_stock")
-    private int unitInStock;
+    @Column(name="units_in_stock")
+    private int unitsInStock;
 
-    @Column(name="descriprtion")
-    private String descriprtion;
+    @Column(name="description")
+    private String description;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -51,15 +47,15 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Cart> carts;
-
     @ManyToMany
-    @JoinTable(name="product_sellers",
+    @JoinTable(name="product_seller",
             joinColumns = @JoinColumn(name="product_id"),
             inverseJoinColumns = @JoinColumn(name="supplier_id"))
     private List<Seller> sellers;
 
     @OneToMany(mappedBy = "product")
     private List<OrderProduct> orderProducts;
+
+    @OneToMany(mappedBy = "product")
+    private List<CartProduct> cartProducts;
 }

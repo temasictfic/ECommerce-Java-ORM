@@ -1,14 +1,15 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.requests;
 
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
+
 import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.util.List;
 
 
-@Getter
-@Setter
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddProductRequest {
@@ -29,16 +30,25 @@ public class AddProductRequest {
     @PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
     private double unitPrice;
 
-    @PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
-    private int unitInStock;
+    @PositiveOrZero(message = "Stok adedi 0'dan düşük olamaz.")
+    private int unitsInStock;
 
-    private String descriprtion;
+    private String description;
 
-    @NotEmpty(message = "Kategori seçilmelidir.")
     private int categoryId;
     
     private List<AddProductPhotoRequest> productPhotos;
-/*
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    /*
     private List<Seller> sellers;*/
 
 }

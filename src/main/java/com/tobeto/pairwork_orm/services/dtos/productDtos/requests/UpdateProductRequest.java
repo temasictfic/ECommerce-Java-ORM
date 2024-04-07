@@ -25,14 +25,13 @@ public class UpdateProductRequest {
 	@NotBlank(message = "Paket ağırlığı boş olamaz.")
 	private String packageWeight;
 
-	private String descriprtion;
+	private String description;
 
-	@NotEmpty(message = "Kategori seçilmelidir.")
 	private int categoryId;
 
 	@PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
 	private double unitPrice;
 
 	@PositiveOrZero(message = "Birim fiyatı 0'dan düşük olamaz.")
-	private double unitInStock; 
+	private double unitsInStock; 
 }

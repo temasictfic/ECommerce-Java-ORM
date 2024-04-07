@@ -1,4 +1,4 @@
-package com.tobeto.pairwork_orm.services.dtos.sellerDtos.requestes;
+package com.tobeto.pairwork_orm.services.dtos.sellerDtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

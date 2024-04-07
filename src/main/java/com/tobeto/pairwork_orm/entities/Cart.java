@@ -20,13 +20,10 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cartId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cart_products",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "cart")
+    private List<CartProduct> cartProducts;
 }
