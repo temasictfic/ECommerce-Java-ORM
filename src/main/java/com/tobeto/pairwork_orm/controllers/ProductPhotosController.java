@@ -1,10 +1,10 @@
 package com.tobeto.pairwork_orm.controllers;
 
 import com.tobeto.pairwork_orm.services.abstracts.ProductPhotoService;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoToProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.DeleteProductPhotoRequest;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.ListProductPhotoRequest;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoResponse;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoToProductResponse;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.DeleteProductPhotoResponse;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.ListProductPhotoResponse;
 import org.springframework.http.HttpStatus;
@@ -24,7 +24,7 @@ public class ProductPhotosController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public AddProductPhotoResponse add(AddProductPhotoRequest request){
+	public AddProductPhotoToProductResponse add(AddProductPhotoToProductRequest request){
 		return photoService.add(request);
 	}
 

@@ -1,6 +1,7 @@
 package com.tobeto.pairwork_orm.services.abstracts;
 
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AddProductRequest;
+import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AssignProductSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.DeleteProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.GetProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.UpdateProductRequest;
@@ -19,4 +20,6 @@ public interface ProductService {
     List<ListProductResponse> getAll();
 
     GetProductResponse getById(GetProductRequest request);
+    
+    AssignProductSellerResponse assignProductToSeller(AssignProductSellerRequest request);
 }

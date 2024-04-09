@@ -1,8 +1,8 @@
 package com.tobeto.pairwork_orm.services.mappers;
 
 import com.tobeto.pairwork_orm.entities.ProductPhoto;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoResponse;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoToProductRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoToProductResponse;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.ListProductPhotoResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -13,7 +13,7 @@ public interface ProductPhotoMapper {
 
 	ListProductPhotoResponse mapProductPhotoToListProductPhotoResponse(ProductPhoto productPhoto);
 
-	ProductPhoto mapAddProductPhotoRequestToProductPhoto(AddProductPhotoRequest request);
+	ProductPhoto mapAddProductPhotoRequestToProductPhoto(AddProductPhotoToProductRequest request);
 
-	AddProductPhotoResponse mapAddProductPhotoResponseToProductPhoto(ProductPhoto productPhoto);
+	AddProductPhotoToProductResponse mapAddProductPhotoResponseToProductPhoto(ProductPhoto productPhoto);
 }

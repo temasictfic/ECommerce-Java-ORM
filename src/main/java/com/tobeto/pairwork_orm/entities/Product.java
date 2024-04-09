@@ -50,11 +50,8 @@ public class Product {
     @ManyToMany
     @JoinTable(name="product_seller",
             joinColumns = @JoinColumn(name="product_id"),
-            inverseJoinColumns = @JoinColumn(name="supplier_id"))
+            inverseJoinColumns = @JoinColumn(name="seller_id"))
     private List<Seller> sellers;
-
-    @OneToMany(mappedBy = "product")
-    private List<OrderProduct> orderProducts;
 
     @OneToMany(mappedBy = "product")
     private List<CartProduct> cartProducts;

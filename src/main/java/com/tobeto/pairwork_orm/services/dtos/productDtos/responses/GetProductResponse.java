@@ -1,5 +1,6 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.responses;
 
+import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AssignProductSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.ListProductPhotoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,5 +32,7 @@ public class GetProductResponse {
 	private double unitsInStock;
 	
 	private List<ListProductPhotoResponse> productPhotos;
+	
+	private List<ListProductSellerResponse> sellers;
 	
 }

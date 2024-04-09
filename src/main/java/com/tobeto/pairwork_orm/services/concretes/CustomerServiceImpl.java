@@ -6,6 +6,7 @@ import com.tobeto.pairwork_orm.entities.ERole;
 import com.tobeto.pairwork_orm.entities.Role;
 import com.tobeto.pairwork_orm.repositories.CustomerRepository;
 import com.tobeto.pairwork_orm.repositories.RoleRepository;
+import com.tobeto.pairwork_orm.services.abstracts.CartService;
 import com.tobeto.pairwork_orm.services.abstracts.CustomerService;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.AddCustomerRequest;
 import com.tobeto.pairwork_orm.services.dtos.customerDtos.requests.DeleteCustomerRequest;
@@ -28,6 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository customerRepository;
 
 	private RoleRepository roleRepository;
+	
+	private CartService cartService;
 
 	private UserBusinessRuleImpl userBusinessRules;
 
@@ -52,6 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setRoles(roles);
 
 		customerRepository.save(customer);
+		cartService.createCustomerCart(customer);// Customer'a ait bir cart oluşturdum.
 
 		AddCustomerResponse response = new AddCustomerResponse("Customer added.");
 

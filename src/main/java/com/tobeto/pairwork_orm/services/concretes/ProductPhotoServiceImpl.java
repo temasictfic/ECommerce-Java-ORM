@@ -6,10 +6,10 @@ import com.tobeto.pairwork_orm.entities.ProductPhoto;
 import com.tobeto.pairwork_orm.repositories.ProductPhotoRepository;
 import com.tobeto.pairwork_orm.repositories.ProductRepository;
 import com.tobeto.pairwork_orm.services.abstracts.ProductPhotoService;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoToProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.DeleteProductPhotoRequest;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.ListProductPhotoRequest;
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoResponse;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.AddProductPhotoToProductResponse;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.DeleteProductPhotoResponse;
 import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.responses.ListProductPhotoResponse;
 import com.tobeto.pairwork_orm.services.mappers.ProductPhotoMapper;
@@ -28,14 +28,14 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
 	private ProductRepository productRepository;
 
 	@Override
-	public AddProductPhotoResponse add(AddProductPhotoRequest request) {
+	public AddProductPhotoToProductResponse add(AddProductPhotoToProductRequest request) {
 		ProductPhoto productPhoto = ProductPhotoMapper.INSTANCE.mapAddProductPhotoRequestToProductPhoto(request);
 		Product product = productRepository.findById(request.getProductId())
 				.orElseThrow(()-> new BusinessException("Error: Requested product not found."));
 		productPhoto.setProduct(product);
 		productPhotoRepository.save(productPhoto);
 
-		AddProductPhotoResponse response = ProductPhotoMapper.INSTANCE.mapAddProductPhotoResponseToProductPhoto(productPhoto);
+		AddProductPhotoToProductResponse response = ProductPhotoMapper.INSTANCE.mapAddProductPhotoResponseToProductPhoto(productPhoto);
 
 		return response;
 	}

@@ -1,7 +1,9 @@
 package com.tobeto.pairwork_orm.services.mappers;
 
 import com.tobeto.pairwork_orm.entities.Product;
+import com.tobeto.pairwork_orm.entities.Seller;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AddProductRequest;
+import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AssignProductSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.UpdateProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.responses.GetProductResponse;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.responses.ListProductResponse;
@@ -18,7 +20,7 @@ public interface ProductMapper {
 	
 	@Mapping(target = "category.categoryId", source = "categoryId")
 	Product mapUpdateProductRequestToProduct(UpdateProductRequest request);
-
+	
 	//@Mapping(target = "productPhotos", ignore = true) // Örnek olarak ignore edildi
 	@Mapping(target = "categoryName", source = "category.categoryName")
     ListProductResponse mapProductToListProductResponse(Product product);

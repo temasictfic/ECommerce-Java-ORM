@@ -7,6 +7,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteProductToCartProductRequest {
-    private int productId;
+public class AddCartProductRequest {
+	private int cartId;
+	
+	private int productId;
+	
+	private int sellerId;
+	
+	private int quantity;
 }

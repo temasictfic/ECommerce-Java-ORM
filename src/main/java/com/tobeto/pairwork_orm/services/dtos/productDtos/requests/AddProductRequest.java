@@ -1,6 +1,6 @@
 package com.tobeto.pairwork_orm.services.dtos.productDtos.requests;
 
-import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoRequest;
+import com.tobeto.pairwork_orm.services.dtos.productPhotoDtos.requests.AddProductPhotoToProductRequest;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -37,7 +37,9 @@ public class AddProductRequest {
 
     private int categoryId;
     
-    private List<AddProductPhotoRequest> productPhotos;
+    private List<AddProductPhotoToProductRequest> productPhotos;
+    
+    private List<AssignProductSellerRequest> sellers;
 
     public String getDescription() {
         return description;

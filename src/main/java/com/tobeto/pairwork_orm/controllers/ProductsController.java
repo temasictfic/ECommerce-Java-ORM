@@ -2,6 +2,7 @@ package com.tobeto.pairwork_orm.controllers;
 
 import com.tobeto.pairwork_orm.services.abstracts.ProductService;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AddProductRequest;
+import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.AssignProductSellerRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.DeleteProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.GetProductRequest;
 import com.tobeto.pairwork_orm.services.dtos.productDtos.requests.UpdateProductRequest;
@@ -20,7 +21,6 @@ public class ProductsController {
     public ProductsController(ProductService productService) {
         this.productService = productService;
     }
-
 
     @GetMapping("/getAll")
     @ResponseStatus(HttpStatus.OK)
@@ -44,6 +44,12 @@ public class ProductsController {
     @ResponseStatus(HttpStatus.OK)
     public UpdatedProductResponse update(@RequestBody @Valid UpdateProductRequest request) {
         return productService.update(request);
+    }
+    
+    @PutMapping("/assignProductToSeller")
+    @ResponseStatus(HttpStatus.OK)
+    public AssignProductSellerResponse assignProductToSeller(@RequestBody @Valid AssignProductSellerRequest request) {
+        return productService.assignProductToSeller(request);
     }
 
     @DeleteMapping

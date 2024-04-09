@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductPhotoResponse {
+public class AddProductPhotoToProductResponse {
+	private int productPhotoId;
 	private String productPhotoUrl;
 }

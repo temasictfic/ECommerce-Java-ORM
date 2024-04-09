@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddProductPhotoRequest {	
+public class AddProductPhotoToProductRequest {	
 	private int productId;
 	private String productPhotoUrl;
 }

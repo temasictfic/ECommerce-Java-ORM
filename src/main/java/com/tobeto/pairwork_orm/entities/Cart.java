@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +26,7 @@ public class Cart {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cart")
-    private List<CartProduct> cartProducts;
+    List<CartProduct> cartProducts;
 }

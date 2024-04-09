@@ -30,4 +30,6 @@ public class ListProductResponse {
 	private double unitInStock; 
 		
 	private List<ListProductPhotoResponse> productPhotos;
+	
+	private List<ListProductSellerResponse> sellers;
 }
