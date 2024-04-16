@@ -26,4 +26,5 @@ public class Customer extends User{
 
     @OneToOne(mappedBy = "customer")
     private Cart cart;
+
 }

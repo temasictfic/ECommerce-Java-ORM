@@ -55,4 +55,14 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<CartProduct> cartProducts;
+
+    public int getQuantity() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getQuantity'");
+    }
+
+    public void setQuantity(int i) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setQuantity'");
+    }
 }
