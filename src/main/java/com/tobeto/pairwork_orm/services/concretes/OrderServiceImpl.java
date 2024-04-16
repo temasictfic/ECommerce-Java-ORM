@@ -13,7 +13,6 @@ import com.tobeto.pairwork_orm.services.dtos.orderDtos.requests.OrderRequest;
 import com.tobeto.pairwork_orm.services.dtos.orderDtos.responses.OrderResponse;
 import com.tobeto.pairwork_orm.services.dtos.orderProductDtos.requests.OrderProductRequest;
 import com.tobeto.pairwork_orm.services.mappers.OrderMapper;
-import com.tobeto.pairwork_orm.services.mappers.ProductMapper;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -37,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
             Product product = productRepository.findById(orderProductRequest.getProductId()).orElseThrow();
 
             // Update the product quantity
-            product.setQuantity(product.getQuantity() - orderProductRequest.getQuantity());
+            product.setUnitsInStock(product.getUnitsInStock() - orderProductRequest.getQuantity());
 
             // Create an OrderProduct entity and add it to the order
             OrderProduct orderProduct = new OrderProduct();

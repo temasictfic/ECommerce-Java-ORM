@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Table(name="products")
@@ -39,6 +40,12 @@ public class Product {
     @Column(name="description")
     private String description;
 
+    @Column(name="sales")
+    private int sales;
+
+    @Column(name="added_date")
+    private  LocalDate addedDate;
+
     @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProductPhoto> productPhotos;
@@ -56,13 +63,4 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<CartProduct> cartProducts;
 
-    public int getQuantity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getQuantity'");
-    }
-
-    public void setQuantity(int i) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setQuantity'");
-    }
 }
